@@ -148,6 +148,15 @@ a.imlink:hover {
     border: none;
     margin-bottom: 15px;
 }
+.profilepic {
+    width: 175px;
+    border-radius: 50%;
+    border: none;
+    margin-bottom: 0px;
+    margin-top: 50px;
+    pointer-events: none;
+    user-select: none;
+}
 .projectPageImage {
     text-align: center;
 }
@@ -237,7 +246,7 @@ a.imlink:hover {
         width: 100px;
     }
 }
-@media screen and (max-height: 700px) {
+@media screen and (max-height: 1000px) {
     .footer {
         position: relative;
     }
