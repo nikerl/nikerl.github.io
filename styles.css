@@ -240,7 +240,7 @@ a.imlink:hover {
     .project:hover {box-shadow: none;}
     .project {
         margin: 0px;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
     .project-image {
         width: 100px;
