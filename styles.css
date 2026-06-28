@@ -9,6 +9,16 @@
     --transistion-time: 0.3s;
 }
 
+#network-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
 body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -22,10 +32,17 @@ body {
 h1 {
     text-align: center;
 }
+p {
+    text-align: left;
+    hyphens: auto;
+    font-size: 1.2em;
+}
 
 
 /* Center div & Footer */
 .container {
+    position: relative;
+    z-index: 1;
     width: 900px;
     min-height: 100%;
     display: flex;
@@ -36,7 +53,7 @@ h1 {
     flex-grow: 1;
 }
 #content-wrap {
-    padding-bottom: 230px;
+    padding-bottom: 0;
     padding-top: 10px;
     padding-right: 15px;
     padding-left: 15px;
@@ -45,14 +62,61 @@ h1 {
 .footer {
     text-align: center;
     width: 100%;
-    left: 0;
-    bottom: 0;
-    position: fixed;
-    padding: 20px 0;
-    padding-top: 10px;
-    background-color: var(--background-color);
-    margin-top: auto;
+    padding: 40px 0 30px;
+    margin-top: 40px;
     user-select: none;
+}
+
+
+/* Project page top header */
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 0 16px;
+}
+.page-header-home,
+.page-header-home:link,
+.page-header-home:visited,
+.page-header-home:hover {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--font-color2);
+}
+.page-header-home .logo,
+.page-header-home .page-header-name {
+    transition: var(--transistion-time);
+}
+.page-header-home:hover .logo {
+    box-shadow: 0 0 10px var(--boxshadow-color);
+}
+.page-header-home:hover .page-header-name {
+    color: var(--font-color);
+}
+.page-header .logo {
+    width: 42px;
+    margin: 0;
+}
+.page-header-name {
+    font-size: 1.1em;
+    font-weight: bold;
+}
+.page-header-links {
+    display: flex;
+    gap: 20px;
+}
+.page-header-links a,
+.page-header-links a:link,
+.page-header-links a:visited {
+    color: var(--font-color2);
+    text-decoration: none;
+    font-size: 0.95em;
+}
+.page-header-links a:hover {
+    color: var(--font-color);
+    text-decoration: none;
 }
 
 
@@ -149,7 +213,7 @@ a.imlink:hover {
     margin-bottom: 15px;
 }
 .profilepic {
-    width: 175px;
+    width: 250px;
     border-radius: 50%;
     border: none;
     margin-bottom: 0px;
@@ -218,12 +282,6 @@ a.imlink:hover {
     }
 }
 @media screen and (max-width: 600px) {
-    #content-wrap {
-        padding-bottom: 0;
-    }
-    .footer {
-        position: relative;
-    }
     .projectPageImage img {
         width: 90%;
     }
@@ -244,13 +302,5 @@ a.imlink:hover {
     }
     .project-image {
         width: 100px;
-    }
-}
-@media screen and (max-height: 1000px) {
-    .footer {
-        position: relative;
-    }
-    #content-wrap {
-        padding-bottom: 0;
     }
 }
