@@ -8,7 +8,7 @@
 
     // Reference values calibrated at 1920x1080
     const REF_AREA = 1920 * 1080;
-    const REF_NODES = 60;
+    const REF_NODES = 70;
     const REF_DIST = 230;
 
     let nodes = [];
@@ -21,7 +21,7 @@
 
     function initNodes() {
         const scale = (canvas.width * canvas.height) / REF_AREA;
-        const count = Math.min(250, Math.max(60, Math.round(REF_NODES * scale)));
+        const count = Math.min(250, Math.max(70, Math.round(REF_NODES * scale)));
         maxDist = REF_DIST * Math.sqrt(scale);
         nodes = [];
         for (let i = 0; i < count; i++) {

@@ -53,7 +53,7 @@ p {
     flex-grow: 1;
 }
 #content-wrap {
-    padding-bottom: 0;
+    padding-bottom: 50px; /* Footer height */
     padding-top: 10px;
     padding-right: 15px;
     padding-left: 15px;
@@ -158,6 +158,7 @@ a.imlink:hover {
     background-color: var(--foreground-color);
     color: var(--font-color);
     user-select: none;
+    min-height: 100px;
 }
 .project:hover {
     box-shadow: 0 0 10px var(--boxshadow-color);
@@ -225,7 +226,7 @@ a.imlink:hover {
     text-align: center;
 }
 .projectPageImage img {
-    width: 60%; 
+    width: 80%; 
     border-radius: 10px;
     pointer-events: none;
     user-select: none;
