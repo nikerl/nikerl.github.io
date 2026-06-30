@@ -1,6 +1,6 @@
 (function () {
-    function navigate(url) {
-        fetch(url)
+    function loadContent(url) {
+        return fetch(url)
             .then(function (r) { return r.text(); })
             .then(function (html) {
                 const doc = new DOMParser().parseFromString(html, 'text/html');
@@ -10,9 +10,14 @@
                     curWrap.replaceWith(newWrap);
                 }
                 document.title = doc.title;
-                history.pushState(null, doc.title, url);
                 window.scrollTo(0, 0);
             });
+    }
+
+    function navigate(url) {
+        loadContent(url).then(function () {
+            history.pushState(null, document.title, url);
+        });
     }
 
     document.addEventListener('click', function (e) {
@@ -30,6 +35,6 @@
     });
 
     window.addEventListener('popstate', function () {
-        navigate(location.pathname + location.search);
+        loadContent(location.pathname + location.search);
     });
 })();
