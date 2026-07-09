@@ -68,8 +68,10 @@
         for (const node of nodes) {
             node.x += node.vx;
             node.y += node.vy;
-            if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
-            if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
+            if (node.x < 0) { node.x = 0; node.vx = Math.abs(node.vx); }
+            else if (node.x > canvas.width) { node.x = canvas.width; node.vx = -Math.abs(node.vx); }
+            if (node.y < 0) { node.y = 0; node.vy = Math.abs(node.vy); }
+            else if (node.y > canvas.height) { node.y = canvas.height; node.vy = -Math.abs(node.vy); }
         }
     }
 
@@ -79,7 +81,13 @@
         requestAnimationFrame(loop);
     }
 
-    window.addEventListener('resize', () => { resize(); initNodes(); });
+    window.addEventListener('resize', () => {
+        const prevWidth = canvas.width;
+        resize();
+        if (Math.abs(canvas.width - prevWidth) > 50) {
+            initNodes();
+        }
+    });
     resize();
     initNodes();
     loop();

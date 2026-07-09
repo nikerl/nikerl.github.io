@@ -10,13 +10,14 @@
                     curWrap.replaceWith(newWrap);
                 }
                 document.title = doc.title;
-                window.scrollTo(0, 0);
             });
     }
 
     function navigate(url) {
+        history.replaceState({ scrollY: window.scrollY }, document.title, location.href);
         loadContent(url).then(function () {
-            history.pushState(null, document.title, url);
+            history.pushState({ scrollY: 0 }, document.title, url);
+            window.scrollTo(0, 0);
         });
     }
 
@@ -34,7 +35,9 @@
         navigate(href);
     });
 
-    window.addEventListener('popstate', function () {
-        loadContent(location.pathname + location.search);
+    window.addEventListener('popstate', function (e) {
+        loadContent(location.pathname + location.search).then(function () {
+            window.scrollTo(0, e.state && e.state.scrollY ? e.state.scrollY : 0);
+        });
     });
 })();
