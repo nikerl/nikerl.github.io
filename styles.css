@@ -66,6 +66,9 @@ p {
     margin-top: 40px;
     user-select: none;
 }
+.footer .page-header-links {
+    justify-content: center;
+}
 
 
 /* Project page top header */

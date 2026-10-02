@@ -27,34 +27,46 @@
 			<hr>
 			<h2>QuadriSparse: RISC-V Sparse Matrix Accelerator and ISA Extension</h2>
 			<p>
-				Sparse dense matrix multiplication (SpMM) is an important operation in many applications 
-				such as inference and training of pruned large language models, graph analytics and 
-				scientific computing. Most accelerators only support sparse operations which limit their 
-				usefulness in cases where the result is reused as the SpMM operation naturally produces 
-				results with greater density than its sparse operand. 
+				Sparse dense matrix multiplication (SpMM) is an important operation in many applications such as 
+				inference and training of pruned large language models, graph analytics and scientific computing. 
+				These applications often operate on data that is inherently sparse. Applying dense matrix multiplication 
+				(GEMM) to sparse data wastes computations on zero-valued elements, which SpMM avoids by skipping them. 
+				However, accelerators designed for dense matrix multiplication do not necessarily support sparse matrix 
+				multiplication efficiently. This motivates extensions that can exploit sparsity while retaining 
+				computation capabilities for dense workloads. 
 			</p>
 			<p>
-				This thesis explores the prospect of extending an accelerator for dense matrix multiplication 
-				to support SpMM to find out how efficient SpMM accelerator is at very small scales. 
+				This thesis explores the prospect of extending a small dense matrix multiplication accelerator with 
+				additional hardware for SpMM, evaluating the the performance benefits against the hardware overhead.  
 			</p>
 			<p>
-				We introduce QuadriSparse, an SpMM extension to the small and efficient RISC-V accelerator 
-				Quadrilatero, designed for unstructured sparsity. The accelerator includes three new instructions 
-				to load a tile of the sparse matrix SPLD, load a tile of the dense matrix DLD, and multiply 
-				the two using Gustavson's algorithm SPMAC. 
+				We introduce QuadriSparse, a SpMM extension for unstructured sparsity that adds a partly new datapath 
+				to the small and efficient RISC-V accelerator Quadrilatero. The accelerator includes three new instructions 
+				to load a tile of the sparse matrix (SPLD_W), load a tile of the dense matrix (DLD_W), and multiply the 
+				two using Gustavson's algorithm (SPMAC_W). We evaluate the resulting accelerator in terms of execution 
+				time across different sparsity levels and matrix sizes and measure the FPGA resource utilization through synthesis.
 			</p>
 			<p>
-				QuadriSparse improves the execution time by up to 6.6x at 99% sparsity compared to dense operations 
-				on Quadrilatero and begins to outperform the baseline at 95%. This was achieved with an area 
-				overhead of 4.6% in LUTs and 23% in DSP-blocks in FPGA synthesis
+				QuadriSparse achieves up to 6.6x lower execution time than dense execution on Quadrilatero at 99% sparsity 
+				and first outperforms the dense baseline at 95% sparsity. FPGA synthesis shows an increase in resource 
+				utilization of 4.6% in LUTs and 23% in DSP-blocks relative to the baseline design.
 			</p>
+
 			<center>
+				<span>
 				<a href="https://github.com/nikerl/quadrisparse" style="text-decoration: none; display: inline-block;">
 					<div class="box bigbox">
 						<span>Fork or star on Github&nbsp;&nbsp;</span>
 						<img src="/assets/icons/github.svg" alt="github" style="height: 20px; pointer-events: none">
 					</div>
 				</a>
+				<a href="https://hdl.handle.net/20.500.12380/312490" style="text-decoration: none; display: inline-block;">
+					<div class="box bigbox">
+						<span>Read the full paper&nbsp;&nbsp;</span>
+						<img src="/assets/icons/pdf.png" alt="pdf" style="height: 20px; pointer-events: none">
+					</div>
+				</a>
+				</span>
 			</center>
 
 			<div class="projectPageImage">
