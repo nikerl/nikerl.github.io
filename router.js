@@ -23,7 +23,7 @@
 
     document.addEventListener('click', function (e) {
         const link = e.target.closest('a[target="_self"]');
-        if (!link) return;
+        if (!link || link.hasAttribute('data-no-router')) return;
         const href = link.getAttribute('href');
         if (!href) return;
         try {
