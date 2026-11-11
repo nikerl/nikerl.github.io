@@ -234,6 +234,16 @@ a.imlink:hover {
     pointer-events: none;
     user-select: none;
 }
+.projectPageImage.sideBySide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+.projectPageImage.sideBySide img {
+    width: auto;
+    height: min(350px, 30vw);
+}
 
 
 /* Box links */
@@ -270,6 +280,13 @@ a.imlink:hover {
     }
     .projectPageImage img {
         width: 75%;
+    }
+    .projectPageImage.sideBySide {
+        flex-direction: column;
+    }
+    .projectPageImage.sideBySide img {
+        width: 75%;
+        height: auto;
     }
     .project {
         margin: 0px;
