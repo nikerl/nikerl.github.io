@@ -9,7 +9,7 @@ Pushing to `main` builds and deploys via GitHub Actions
 
 - `projects.json` – list of projects
 - `projects/<slug>/` – one folder per project: its images and `content.html` (page body fragment, trusted HTML inserted as-is)
-- `templates/index.html`, `templates/project.html` – page templates; `templates/project_card.html` is the markup of one project entry in the index list (placeholders: `{{HREF}}`, `{{LOGO}}`, `{{TITLE}}`, `{{DESCRIPTION}}`, `{{LINK_ATTRS}}`)
+- `templates/index.html`, `templates/project.html` – page templates; `templates/project_content.html` is the starting point `new-project.js` copies into each new project's `content.html`; `templates/project_card.html` is the markup of one project entry in the index list (placeholders: `{{HREF}}`, `{{LOGO}}`, `{{TITLE}}`, `{{DESCRIPTION}}`, `{{LINK_ATTRS}}`)
 - `static/` – copied into the site root as-is: `styles.css`, `router.js`, `network-bg.js` and `assets/` (shared logos, icons, profile picture), so `static/assets/x.png` is served at `/assets/x.png`
 - `CNAME` – copied to the site root
 - `dist/` – build output (git-ignored)
@@ -22,6 +22,7 @@ The file is an array of projects. The index lists them sorted by `date_added`, n
 |---------------|----------|-------|
 | `slug`        | yes      | Letters, digits, `_` and `-`. Unique. The project folder must be named exactly like it, and the page is served at `/projects/<slug>/`. |
 | `title`       | yes      | Shown on the index and in the page title. HTML-escaped by the build. |
+| `subtitle`    | yes*     | Shown as the `<h2>` under the title on the project page. HTML-escaped by the build. *Not needed for external projects (`link`), which have no page. |
 | `description` | yes      | One line for the index and link previews. HTML-escaped by the build. |
 | `date_added`  | yes      | `YYYY-MM-DD`. Decides the order on the index. |
 | `logo`        | yes      | Site path starting with `/`, e.g. `/projects/<slug>/logo.png`. The file must exist. |
@@ -38,6 +39,7 @@ Quick start: `node new-project.js <slug>` creates `projects/<slug>/content.html`
    {
        "slug": "my_project",
        "title": "My Project",
+       "subtitle": "Shown under the title on the project page",
        "description": "One line shown on the index and in link previews",
        "date_added": "YYYY-MM-DD",
        "logo": "/projects/my_project/logo.png"
@@ -49,14 +51,22 @@ Quick start: `node new-project.js <slug>` creates `projects/<slug>/content.html`
 3. Create `projects/my_project/content.html` with the page body (start from another project's). Reference images as `/projects/my_project/<file>`.
 4. Push to `main`. The page appears at `/projects/my_project/`.
 
-Title and description are HTML-escaped by the build; content fragments are not.
+`content.html` is trusted HTML inserted as-is, except that `{{TITLE}}` and `{{SUBTITLE}}` in it are replaced with the (HTML-escaped) title and subtitle from `projects.json`. Start it with:
+
+```html
+<h1>{{TITLE}}</h1>
+<hr>
+<h2>{{SUBTITLE}}</h2>
+```
+
+Any other `{{PLACEHOLDER}}` in a content file fails the build.
 
 ## Build errors
 
 `node build.js` stops with a message naming the problem entry if:
 
 - `projects.json` is not valid JSON or not an array
-- a required field is missing or empty, or `date_added` is not a valid `YYYY-MM-DD` date
+- a required field is missing or empty (`subtitle` only for projects without `link`), or `date_added` is not a valid `YYYY-MM-DD` date
 - a slug has invalid characters or is used twice
 - the folder `projects/<slug>/` does not exist
 - `projects/<slug>/content.html` is missing (and the project has no `link`)

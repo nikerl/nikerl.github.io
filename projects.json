@@ -2,6 +2,7 @@
     {
         "slug": "simple_kvm",
         "title": "Simple KVM",
+        "subtitle": "A basic IP KVM for when PiKVM is overkill",
         "description": "A basic IP KVM for when PiKVM is overkill",
         "date_added": "2026-11-11",
         "logo": "/projects/simple_kvm/logo.png"
@@ -9,6 +10,7 @@
     {
         "slug": "qrv_emu",
         "title": "QRV-Emu",
+        "subtitle": "The QuadriSparse + RV32IM Emulator, written in Rust",
         "description": "The QuadriSparse + RV32IM Emulator, written in Rust",
         "date_added": "2026-07-08",
         "logo": "/projects/qrv_emu/logo.png"
@@ -16,6 +18,7 @@
     {
         "slug": "master_thesis",
         "title": "Master Thesis",
+        "subtitle": "QuadriSparse: A RISC-V systolic array-based sparse matrix multiplication accelerator",
         "description": "QuadriSparse: A RISC-V systolic array-based sparse matrix multiplication accelerator",
         "date_added": "2026-05-06",
         "logo": "/projects/master_thesis/diagram-small.png"
@@ -31,6 +34,7 @@
     {
         "slug": "audiobook_binder",
         "title": "Parallel Audiobook Binder",
+        "subtitle": "A parallelized audiobook binder with support for ID3v2 tags",
         "description": "A parallelized audiobook binder with support for ID3v2 tags. MP3 to M4B converter",
         "date_added": "2024-09-22",
         "logo": "/projects/audiobook_binder/audiobook.png"
@@ -38,6 +42,7 @@
     {
         "slug": "bachelor_thesis",
         "title": "Bachelor Thesis",
+        "subtitle": "Analysis of the Effects of Network Congestion Across Different Link Types",
         "description": "Analysis of the Effects of Network Congestion Across Different Link Types",
         "date_added": "2024-06-01",
         "logo": "/projects/bachelor_thesis/linktypes.jpg"
@@ -45,6 +50,7 @@
     {
         "slug": "micromobility",
         "title": "Västtrafik Micromobility",
+        "subtitle": "A trip planner combining Västtrafik with rental bikes and scooters",
         "description": "A trip planner that combines public transport with alternative solutions like rental bicycles and electric scooters",
         "date_added": "2023-12-14",
         "logo": "/projects/micromobility/logo.png"
@@ -52,6 +58,7 @@
     {
         "slug": "energy_map",
         "title": "Energy Map",
+        "subtitle": "An interactive map showcasing energy production across Europe",
         "description": "An interactive map showcasing energy production across Europe",
         "date_added": "2023-10-23",
         "logo": "/projects/energy_map/logo.png"

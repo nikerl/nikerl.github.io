@@ -75,6 +75,10 @@ projects.forEach((p, i) => {
     if (!hasLink && !fs.existsSync(path.join(ROOT, contentPath(p)))) {
         fail(`${where}: missing "${contentPath(p)}" (add it, or set "link" for an external project)`);
     }
+    // Projects with their own page show the subtitle under the title; external ones have no page.
+    if (!hasLink && (typeof p.subtitle !== 'string' || !p.subtitle.trim())) {
+        fail(`${where} is missing required field "subtitle"`);
+    }
     if (hasLink && !/^https?:\/\//.test(p.link)) fail(`${where}: "link" must be an http(s) URL`);
     if (typeof p.date_added !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(p.date_added) || isNaN(Date.parse(p.date_added))) {
         fail(`${where}: "date_added" must be a valid YYYY-MM-DD date`);
@@ -160,7 +164,12 @@ for (const p of projects) {
             LOGO: esc(p.logo),
             LOGO_URL: esc(SITE_URL + p.logo),
             PAGE_URL: esc(SITE_URL + pageUrl(p)),
-            CONTENT: read(contentPath(p)).trim(), // trusted, inserted raw
+            // Trusted HTML, inserted raw, but {{TITLE}} / {{SUBTITLE}} in it are filled from projects.json.
+            CONTENT: render(
+                read(contentPath(p)).trim(),
+                { TITLE: esc(p.title), SUBTITLE: esc(p.subtitle) },
+                contentPath(p)
+            ),
         },
         'templates/project.html'
     );

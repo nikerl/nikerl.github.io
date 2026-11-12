@@ -383,10 +383,10 @@ a.imlink:hover {
 .project-page hr {
     border: none;
     height: 0;
-    margin: 0 0 24px;
+    margin: 0;
 }
 .project-page h2 {
-    margin: 0 0 18px;
+    margin: 0 0 30px;
     font-size: 1.15em;
     text-align: center;
     color: var(--link-color);
