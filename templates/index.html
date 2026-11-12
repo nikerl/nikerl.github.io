@@ -24,26 +24,24 @@
     <canvas id="network-bg"></canvas>
     <div class="container">
 		<div id="content-wrap">
-			<center>
-				<img src="/assets/images/profile_pic.png" alt="profile picture" class="profilepic">
-			</center>
-			<h1>Nik Erlandsson</h1>
-			<hr>
-			<p>
-				I'm a recent Computer Science and Engineering graduate from Chalmers University of Technology in Gothenburg, Sweden.
-				I just finished my masters in High Performance Computing Systems, building an accelerator for sparse matrix
-				multiplication. This is a simple website* to showcases some of the projects I've worked on.
-			</p>
-			<br>
-			<p style="font-size: small">
-				*Created with free-range locally sourced HTML and CSS.
-			</p>
-			<br>
+			<div class="home">
+				<header class="hero">
+					<img src="/assets/images/profile_pic.png" alt="profile picture" class="profilepic">
+					<h1>Nik Erlandsson</h1>
+					<p class="hero-tagline">Computer Science &amp; Engineering · Chalmers University of Technology</p>
+					<p class="hero-bio">
+						I'm a recent graduate from Gothenburg, Sweden. I just finished my masters in High Performance
+						Computing Systems, building an accelerator for sparse matrix multiplication. This is a simple
+						website to showcase some of the projects I've worked on.
+					</p>
+					<p class="hero-note">Created with free-range locally sourced HTML and CSS.</p>
+				</header>
 
-			<h1>A few projects I've worked on</h1>
-			<hr>
-
-			{{PROJECT_LIST}}
+				<h2 class="section-title">Projects</h2>
+				<div class="project-list">
+					{{PROJECT_LIST}}
+				</div>
+			</div>
 
 			<div class="footer">
 				<img class="logo image" src="/assets/logo/nikerl_logo.svg" alt="logo">

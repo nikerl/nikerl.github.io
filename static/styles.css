@@ -149,22 +149,64 @@ a.imlink:hover {
 }
 
 
+/* Index hero */
+.home .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 24px;
+}
+.home .hero h1 {
+    margin: 24px 0 6px;
+    font-size: 2.4em;
+    letter-spacing: -0.02em;
+}
+.home .hero p {
+    text-align: center;
+}
+.home .hero-tagline {
+    margin: 0 0 20px;
+    font-size: 1.05em;
+    color: var(--link-color);
+    letter-spacing: 0.02em;
+}
+.home .hero-bio {
+    max-width: 680px;
+    margin: 0;
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: var(--font-color2);
+}
+.home .hero-note {
+    margin: 14px 0 0;
+    font-size: 0.8em;
+    color: #777;
+}
+.project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+
 /* Project boxes on index.html */
 .project {
     display: flex;
-    align-items: center;
-    margin: 20px;
+    align-items: stretch;
     border: 1px solid var(--border-color);
-    padding: 10px;
-    border-radius: 5px;
-    transition: box-shadow var(--transistion-time);
-    background-color: var(--foreground-color);
+    padding: 12px;
+    border-radius: 12px;
+    transition: transform var(--transistion-time), border-color var(--transistion-time), box-shadow var(--transistion-time);
+    background-color: rgba(30, 30, 35, 0.85);
+    backdrop-filter: blur(6px);
     color: var(--font-color);
     user-select: none;
-    min-height: 100px;
 }
 .project:hover {
-    box-shadow: 0 0 10px var(--boxshadow-color);
+    transform: translateY(-2px);
+    border-color: var(--link-color);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(31, 150, 206, 0.25);
 }
 .project a {
     display: flex;
@@ -181,21 +223,26 @@ a.imlink:hover {
 .project-image {
     object-fit: cover;
     width: 150px;
+    aspect-ratio: 16 / 10;
     height: auto;
+    flex-shrink: 0;
     margin-right: 20px;
-    border-radius: 5px;
+    border-radius: 8px;
 }
 .project-description {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     text-align: left;
 }
 .project-description h2 {
     margin: 0;
-    font-size: 1.5em;
+    font-size: 1.25em;
 }
 .project-description p {
-    margin: 5px 0 0;
+    margin: 6px 0 0;
+    font-size: 1em;
+    line-height: 1.45;
     color: var(--font-color2);
 }
 
@@ -288,12 +335,8 @@ a.imlink:hover {
         width: 75%;
         height: auto;
     }
-    .project {
-        margin: 0px;
-        margin-top: 20px;
-    }
     .project-image {
-        width: 100px;
+        width: 140px;
     }
     .box {
         margin: 2px;
@@ -316,12 +359,111 @@ a.imlink:hover {
     }
     .box:hover {box-shadow: none;}
     .logo:hover {box-shadow: none;}
-    .project:hover {box-shadow: none;}
-    .project {
-        margin: 0px;
-        margin-bottom: 10px;
-    }
+    .project:hover {transform: none;}
+    .home .hero h1 {font-size: 2em;}
     .project-image {
-        width: 100px;
+        width: 120px;
+        margin-right: 14px;
     }
+    .project-description h2 {font-size: 1.1em;}
+    .project-description p {font-size: 0.92em;}
+}
+
+
+/* Project pages */
+.page-header {
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+.project-page h1 {
+    margin: 28px 0 8px;
+    font-size: 2.4em;
+    letter-spacing: -0.02em;
+}
+.project-page hr {
+    border: none;
+    height: 0;
+    margin: 0 0 24px;
+}
+.project-page h2 {
+    margin: 0 0 18px;
+    font-size: 1.15em;
+    text-align: center;
+    color: var(--link-color);
+    letter-spacing: 0.02em;
+}
+.project-page h3 {
+    margin: 28px 0 10px;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--font-color2);
+}
+.project-page p,
+.project-page li {
+    font-size: 1.05em;
+    line-height: 1.65;
+    text-align: left;
+    color: var(--font-color2);
+}
+.project-page p {
+    margin: 0 0 16px;
+}
+.project-page .box {
+    border-radius: 12px;
+    background-color: rgba(30, 30, 35, 0.85);
+    backdrop-filter: blur(6px);
+    transition: transform var(--transistion-time), border-color var(--transistion-time), box-shadow var(--transistion-time);
+}
+.project-page .box:hover {
+    transform: translateY(-2px);
+    border-color: var(--link-color);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(31, 150, 206, 0.25);
+}
+.project-page .projectPageImage img,
+.project-page .image {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+}
+@media screen and (max-width: 600px) {
+    .project-page h1 {font-size: 2em;}
+    .project-page .box:hover {transform: none;}
+}
+
+
+/* Project page header: monospace, normal case */
+.section-title,
+.page-header-name,
+.page-header-links a,
+.page-header-links a:link,
+.page-header-links a:visited {
+    font-family: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 0.8em;
+    letter-spacing: 0.02em;
+}
+.section-title,
+.page-header-name {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+.section-title {
+    margin: 36px 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+    text-align: left;
+    color: var(--font-color2);
+} 
+
+@media screen and (max-width: 600px) {
+    .page-header-links {
+        font-size: 0.75em;
+    }
+    .page-header-name {
+        font-size: 1em;
+    }
+}
+
+/* No hover glow on the footer logo */
+.footer .logo:hover {
+    box-shadow: none;
 }
