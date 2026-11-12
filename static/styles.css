@@ -1,24 +1,23 @@
+
+/* 1. Variables
+   ========================================================================== */
 :root {
     --background-color: #121214;
-    --foreground-color: #1e1e23;
     --border-color: #333333;
     --font-color: #e0e0e0;
     --font-color2: #bbbbbb;
+    --font-color3: #777777;
     --link-color: #1f96ce;
-    --boxshadow-color: rgba(255, 255, 255, 0.1);
-    --transistion-time: 0.3s;
+    --glow-color: rgba(255, 255, 255, 0.1);
+    --card-bg: rgba(30, 30, 35, 0.85);
+    --card-hover-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(31, 150, 206, 0.25);
+    --transition-time: 0.3s;
+    --mono: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
 }
 
-#network-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-}
 
+/* 2. Base
+   ========================================================================== */
 body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -37,9 +36,27 @@ p {
     hyphens: auto;
     font-size: 1.2em;
 }
+a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+/* Animated background (drawn by network-bg.js) */
+#network-bg {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
 
 
-/* Center div & Footer */
+/* 3. Page layout
+   ========================================================================== */
 .container {
     position: relative;
     z-index: 1;
@@ -47,18 +64,119 @@ p {
     min-height: 100%;
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     margin: 0 auto;
     text-align: justify;
     hyphens: auto;
-    flex-grow: 1;
 }
 #content-wrap {
-    padding-bottom: 50px; /* Footer height */
-    padding-top: 10px;
-    padding-right: 15px;
-    padding-left: 15px;
     flex: 1;
+    padding: 10px 15px 50px; /* bottom = footer height */
 }
+
+@media screen and (max-width: 900px) {
+    .container {
+        width: 100%;
+        text-align: left;
+    }
+}
+
+
+/* 4. Shared components
+   ========================================================================== */
+
+/* Monospace labels: header name and index section title */
+.page-header-name,
+.section-title {
+    font-family: var(--mono);
+    font-size: 1.2em;
+    font-weight: bold;
+    letter-spacing: 0.02em;
+}
+
+/* Cards: index project entries and project page link buttons */
+.project,
+.box {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background-color: var(--card-bg);
+    backdrop-filter: blur(6px);
+    color: var(--font-color);
+    transition: transform var(--transition-time), border-color var(--transition-time), box-shadow var(--transition-time);
+}
+.project:hover,
+.box:hover {
+    transform: translateY(-2px);
+    border-color: var(--link-color);
+    box-shadow: var(--card-hover-shadow);
+}
+
+@media screen and (max-width: 600px) {
+    .project:hover,
+    .box:hover {
+        transform: none;
+    }
+}
+
+
+/* 5. Header and footer
+   ========================================================================== */
+
+/* Logo (header and footer) */
+.logo {
+    width: 120px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    transition: box-shadow var(--transition-time);
+}
+
+/* Header (project pages) */
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 0 16px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+.page-header .logo {
+    width: 42px;
+    margin: 0;
+}
+a.page-header-home {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--font-color2);
+    text-decoration: none;
+}
+a.page-header-home:hover .logo {
+    box-shadow: 0 0 10px var(--glow-color);
+}
+.page-header-name {
+    transition: color var(--transition-time);
+}
+a.page-header-home:hover .page-header-name {
+    color: var(--font-color);
+}
+
+/* Link row (header, and reused in the footer) */
+.page-header-links {
+    display: flex;
+    gap: 20px;
+}
+.page-header-links a {
+    font-family: var(--mono);
+    font-size: 0.8em;
+    letter-spacing: 0.02em;
+    color: var(--font-color2);
+    text-decoration: none;
+}
+.page-header-links a:hover {
+    color: var(--font-color);
+}
+
+/* Footer (index) */
 .footer {
     text-align: center;
     width: 100%;
@@ -66,122 +184,78 @@ p {
     margin-top: 40px;
     user-select: none;
 }
+.footer .logo {
+    margin-top: 10px;
+}
 .footer .page-header-links {
     justify-content: center;
 }
 
-
-/* Project page top header */
-.page-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 24px 0 16px;
-}
-.page-header-home,
-.page-header-home:link,
-.page-header-home:visited,
-.page-header-home:hover {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-decoration: none;
-    color: var(--font-color2);
-}
-.page-header-home .logo,
-.page-header-home .page-header-name {
-    transition: var(--transistion-time);
-}
-.page-header-home:hover .logo {
-    box-shadow: 0 0 10px var(--boxshadow-color);
-}
-.page-header-home:hover .page-header-name {
-    color: var(--font-color);
-}
-.page-header .logo {
-    width: 42px;
-    margin: 0;
-}
-.page-header-name {
-    font-size: 1.1em;
-    font-weight: bold;
-}
-.page-header-links {
-    display: flex;
-    gap: 20px;
-}
-.page-header-links a,
-.page-header-links a:link,
-.page-header-links a:visited {
-    color: var(--font-color2);
-    text-decoration: none;
-    font-size: 0.95em;
-}
-.page-header-links a:hover {
-    color: var(--font-color);
-    text-decoration: none;
+@media screen and (max-width: 600px) {
+    .page-header-links {
+        font-size: 0.75em;
+    }
+    .page-header-name {
+        font-size: 1em;
+    }
 }
 
 
-/* Links */
-a:link {
-    color: var(--link-color);
-    background-color: transparent;
-    text-decoration: none;
-  }
-a:visited {
-    color: var(--link-color);
-    background-color: transparent;
-    text-decoration: none;
-}
-a:hover {
-    color: var(--link-color);
-    background-color: transparent;
-    text-decoration: underline;
-}
-a.imlink {
-    color: var(--font-color); 
-    text-decoration: none;
-}
-a.imlink:hover {
-    color: var(--font-color);
-    text-decoration: none;
-}
+/* 6. Index page
+   ========================================================================== */
 
-
-/* Index hero */
-.home .hero {
+/* Hero */
+.hero {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     padding-bottom: 24px;
 }
-.home .hero h1 {
+.hero p {
+    text-align: center;
+}
+.hero h1 {
     margin: 24px 0 6px;
     font-size: 2.4em;
     letter-spacing: -0.02em;
 }
-.home .hero p {
-    text-align: center;
+.profilepic {
+    width: 250px;
+    border-radius: 50%;
+    margin: 50px 0 0;
+    pointer-events: none;
+    user-select: none;
 }
-.home .hero-tagline {
+.hero-tagline,
+.project-page h2 { /* project page subtitle matches the tagline */
     margin: 0 0 20px;
     font-size: 1.05em;
-    color: var(--link-color);
+    font-weight: normal;
+    text-align: center;
     letter-spacing: 0.02em;
+    color: var(--link-color);
 }
-.home .hero-bio {
+.hero-bio {
     max-width: 680px;
     margin: 0;
     font-size: 1.1em;
     line-height: 1.6;
     color: var(--font-color2);
 }
-.home .hero-note {
+.hero-note {
     margin: 14px 0 0;
     font-size: 0.8em;
-    color: #777;
+    color: var(--font-color3);
+}
+
+/* Project list */
+.section-title {
+    margin: 36px 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+    text-align: left;
+    color: var(--font-color2);
 }
 .project-list {
     display: flex;
@@ -189,44 +263,24 @@ a.imlink:hover {
     gap: 14px;
 }
 
-
-/* Project boxes on index.html */
+/* Project card */
 .project {
     display: flex;
-    align-items: stretch;
-    border: 1px solid var(--border-color);
     padding: 12px;
-    border-radius: 12px;
-    transition: transform var(--transistion-time), border-color var(--transistion-time), box-shadow var(--transistion-time);
-    background-color: rgba(30, 30, 35, 0.85);
-    backdrop-filter: blur(6px);
-    color: var(--font-color);
     user-select: none;
-}
-.project:hover {
-    transform: translateY(-2px);
-    border-color: var(--link-color);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(31, 150, 206, 0.25);
 }
 .project a {
     display: flex;
-    text-decoration: none;
-    color: inherit;
     width: 100%;
-}
-.project a:hover {
-    display: flex;
-    text-decoration: none;
     color: inherit;
-    width: 100%;
+    text-decoration: none;
 }
 .project-image {
-    object-fit: cover;
+    flex-shrink: 0;
     width: 150px;
     aspect-ratio: 16 / 10;
-    height: auto;
-    flex-shrink: 0;
     margin-right: 20px;
+    object-fit: cover;
     border-radius: 8px;
 }
 .project-description {
@@ -246,38 +300,71 @@ a.imlink:hover {
     color: var(--font-color2);
 }
 
+@media screen and (max-width: 900px) {
+    .project-image {
+        width: 140px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .hero h1 {
+        font-size: 2em;
+    }
+    .project-image {
+        width: 120px;
+        margin-right: 14px;
+    }
+    .project-description h2 {
+        font-size: 1.1em;
+    }
+    .project-description p {
+        font-size: 0.92em;
+    }
+}
 
-/* Images */
-.image {
-    border-radius: 5px;
-    transition: var(--transistion-time);
-    margin-top: 10px;
+
+/* 7. Project pages
+   ========================================================================== */
+
+/* Text */
+.project-page h1 {
+    margin: 28px 0 8px;
+    font-size: 2.4em;
+    letter-spacing: -0.02em;
 }
-.image:hover {
-    box-shadow: 0 0 10px var(--boxshadow-color);
+.project-page hr {
+    display: none;
 }
-.logo {
-    width: 120px;
-    border-radius: 50%;
-    transition: box-shadow var(--transistion-time);
-    border: none;
-    margin-bottom: 15px;
+.project-page p,
+.project-page li {
+    font-size: 1.05em;
+    line-height: 1.65;
+    text-align: left;
+    color: var(--font-color2);
 }
-.profilepic {
+.project-page p {
+    margin: 0 0 16px;
+}
+
+/* Link buttons (card look comes from section 4) */
+.box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 250px;
-    border-radius: 50%;
-    border: none;
-    margin-bottom: 0px;
-    margin-top: 50px;
-    pointer-events: none;
+    margin: 5px 5px 30px;
+    padding: 10px;
+    cursor: pointer;
     user-select: none;
 }
+
+/* Images */
 .projectPageImage {
     text-align: center;
 }
 .projectPageImage img {
-    width: 80%; 
-    border-radius: 10px;
+    width: 80%;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
     pointer-events: none;
     user-select: none;
 }
@@ -292,38 +379,9 @@ a.imlink:hover {
     height: min(350px, 30vw);
 }
 
-
-/* Box links */
-.box {
-    display: inline-block;
-    align-items: center;
-    justify-content: center;
-    width: 75px;
-    margin: 5px;
-    border: 1px solid var(--border-color);
-    padding: 10px;
-    border-radius: 4px;
-    background-color: var(--foreground-color);
-    color: var(--font-color);
-    transition: box-shadow var(--transistion-time);
-}
-.bigbox {
-    display: flex; 
-    width: 250px; 
-    cursor: pointer;
-    margin-bottom: 30px;
-    user-select: none;
-}
-.box:hover {
-    box-shadow: 0 0 10px var(--boxshadow-color);
-}
-
-
-/* Responsive Design */
 @media screen and (max-width: 900px) {
-    .container {
-        width: 100%;
-        text-align: left;
+    .box {
+        margin: 2px 2px 20px;
     }
     .projectPageImage img {
         width: 75%;
@@ -335,136 +393,12 @@ a.imlink:hover {
         width: 75%;
         height: auto;
     }
-    .project-image {
-        width: 140px;
-    }
-    .box {
-        margin: 2px;
-    }
-    .bigbox {
-        margin-bottom: 20px;
-    }
 }
 @media screen and (max-width: 600px) {
-    .projectPageImage img {
-        width: 90%;
+    .project-page h1 {
+        font-size: 2em;
     }
     .box {
-        margin: 2px;
-        width: 70px;
-    }
-    .bigbox {
         width: 80vw;
-        margin-bottom: 20px;
     }
-    .box:hover {box-shadow: none;}
-    .logo:hover {box-shadow: none;}
-    .project:hover {transform: none;}
-    .home .hero h1 {font-size: 2em;}
-    .project-image {
-        width: 120px;
-        margin-right: 14px;
-    }
-    .project-description h2 {font-size: 1.1em;}
-    .project-description p {font-size: 0.92em;}
-}
-
-
-/* Project pages */
-.page-header {
-    margin-bottom: 8px;
-    border-bottom: 1px solid var(--border-color);
-}
-.project-page h1 {
-    margin: 28px 0 8px;
-    font-size: 2.4em;
-    letter-spacing: -0.02em;
-}
-.project-page hr {
-    border: none;
-    height: 0;
-    margin: 0;
-}
-.project-page h2 {
-    margin: 0 0 20px;
-    font-size: 1.05em;
-    font-weight: normal;
-    text-align: center;
-    color: var(--link-color);
-    letter-spacing: 0.02em;
-}
-.project-page h3 {
-    margin: 28px 0 10px;
-    font-size: 0.85em;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--font-color2);
-}
-.project-page p,
-.project-page li {
-    font-size: 1.05em;
-    line-height: 1.65;
-    text-align: left;
-    color: var(--font-color2);
-}
-.project-page p {
-    margin: 0 0 16px;
-}
-.project-page .box {
-    border-radius: 12px;
-    background-color: rgba(30, 30, 35, 0.85);
-    backdrop-filter: blur(6px);
-    transition: transform var(--transistion-time), border-color var(--transistion-time), box-shadow var(--transistion-time);
-}
-.project-page .box:hover {
-    transform: translateY(-2px);
-    border-color: var(--link-color);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(31, 150, 206, 0.25);
-}
-.project-page .projectPageImage img,
-.project-page .image {
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-}
-@media screen and (max-width: 600px) {
-    .project-page h1 {font-size: 2em;}
-    .project-page .box:hover {transform: none;}
-}
-
-
-/* Project page header: monospace, normal case */
-.section-title,
-.page-header-name,
-.page-header-links a,
-.page-header-links a:link,
-.page-header-links a:visited {
-    font-family: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-    font-size: 0.8em;
-    letter-spacing: 0.02em;
-}
-.section-title,
-.page-header-name {
-    font-weight: bold;
-    font-size: 1.2em;
-}
-.section-title {
-    margin: 36px 0 16px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--border-color);
-    text-align: left;
-    color: var(--font-color2);
-} 
-
-@media screen and (max-width: 600px) {
-    .page-header-links {
-        font-size: 0.75em;
-    }
-    .page-header-name {
-        font-size: 1em;
-    }
-}
-
-/* No hover glow on the footer logo */
-.footer .logo:hover {
-    box-shadow: none;
 }
