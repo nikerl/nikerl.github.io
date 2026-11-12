@@ -2,7 +2,9 @@
 <hr>
 <h2>{{SUBTITLE}}</h2>
 <p>
-    Simple KVM is a very basic IP KVM for when PiKVM is overkill. Simple KVM has a simple but responsive UI that works well on both desktop and mobile. The following features are implemented:
+    Simple KVM is a very basic IP KVM for when PiKVM is overkill. Simple KVM has 
+    a simple but responsive UI that works well on both desktop and mobile. The 
+    following features are implemented:
 </p>
 <ul>
     <li>Video ouptut</li>
@@ -11,6 +13,15 @@
     <li>Screenshot button</li>
     <li>Simple authentication and session management for one user</li>
     <li>PWA support</li>
+</ul>
+<p>
+    The backend is written in Golang and the frontend is HTML/JS. These components 
+    are needed to use build the KVM:
+</p>
+<ul>
+    <li>A SBC with at least 1x USB A port and 1x USB-OTG port, for example Raspberry Pi 4</li>
+    <li>A cheap USB/HDMI capture card, <a href="https://www.amazon.com/dp/B0C2MDTY8P">for example this one</a></li>
+    <li>If your SBC has one USB C port that combines power and USB-OTG you also need a splitter, <a href="https://www.aliexpress.com/item/1005007723101153.html">such as this one</a></li>
 </ul>
 
 <center>
