@@ -38,9 +38,6 @@ p {
 }
 a {
     color: var(--link-color);
-    text-decoration: none;
-}
-a:hover {
     text-decoration: underline;
 }
 
@@ -170,7 +167,6 @@ a.page-header-home:hover .page-header-name {
     font-size: 0.8em;
     letter-spacing: 0.02em;
     color: var(--font-color2);
-    text-decoration: none;
 }
 .page-header-links a:hover {
     color: var(--font-color);
