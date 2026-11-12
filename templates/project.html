@@ -1,10 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>TITLE</title>
+    <title>{{TITLE}} | Nik Erlandsson</title>
     <meta charset="UTF-8">
 	<base target="_blank">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{DESCRIPTION}}">
+    <link rel="canonical" href="{{PAGE_URL}}">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Nik Erlandsson">
+    <meta property="og:title" content="{{TITLE}}">
+    <meta property="og:description" content="{{DESCRIPTION}}">
+    <meta property="og:url" content="{{PAGE_URL}}">
+    <meta property="og:image" content="{{LOGO_URL}}">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{TITLE}}">
+    <meta name="twitter:description" content="{{DESCRIPTION}}">
+    <meta name="twitter:image" content="{{LOGO_URL}}">
     <link rel="stylesheet" href="/styles.css">
     <link rel="shortcut icon" href="/assets/logo/favicon.png" type="image/x-icon">
 </head>
@@ -23,25 +35,8 @@
 					<a href="mailto:nik.erlandsson@gmail.com">Email</a>
 				</div>
 			</div>
-			<h1>TITLE</h1>
-			<hr>
-			<p>
-				DESCRIPTION
-			</p>
 
-
-			<center>
-				<a href="LINK" style="text-decoration: none; display: inline-block;">
-					<div class="box bigbox">
-						<span>Fork or star on Github&nbsp;&nbsp;</span>
-						<img src="/assets/icons/github.svg" alt="github" style="height: 20px; pointer-events: none">
-					</div>
-				</a>
-			</center>
-
-			<div class="projectPageImage">
-				<img src="IMAGE" alt="ALT">
-			</div>
+            {{CONTENT}}
 
 		</div>
     </div>
