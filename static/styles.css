@@ -185,6 +185,7 @@ a.page-header-home:hover .page-header-name {
 }
 .footer .page-header-links {
     justify-content: center;
+    font-size: 1.2em;
 }
 
 @media screen and (max-width: 600px) {
