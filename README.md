@@ -25,7 +25,7 @@ The file is an array of projects. The index lists them sorted by `date_added`, n
 | `subtitle`    | yes*     | Shown as the `<h2>` under the title on the project page. HTML-escaped by the build. *Not needed for external projects (`link`), which have no page. |
 | `description` | yes      | One line for the index and link previews. HTML-escaped by the build. |
 | `date_added`  | yes      | `YYYY-MM-DD`. Decides the order on the index. |
-| `logo`        | yes      | Site path starting with `/`, e.g. `/projects/<slug>/logo.png`. The file must exist. |
+| `logo`        | yes      | Site path starting with `/`, e.g. `/projects/<slug>/logo.png`. If the file doesn't exist the build still succeeds: it prints an `ERROR:` and uses `/assets/images/placeholder.svg` instead. |
 | `link`        | no       | `http(s)` URL. Marks an external project: the index links straight to it and no page is generated, so `content.html` is not needed. |
 
 ## Adding a project
@@ -70,10 +70,12 @@ Any other `{{PLACEHOLDER}}` in a content file fails the build.
 - a slug has invalid characters or is used twice
 - the folder `projects/<slug>/` does not exist
 - `projects/<slug>/content.html` is missing (and the project has no `link`)
-- the `logo` file does not exist, or does not start with `/`
+- the `logo` does not start with `/`, or the placeholder image `static/assets/images/placeholder.svg` itself is missing
 - `link` is not an `http(s)` URL
 - an entry still has the removed `content` field
 - `static/` is missing, or a template uses an unknown `{{PLACEHOLDER}}`
+
+A missing `logo` file is not one of these: the build prints an `ERROR:` line, uses the placeholder image, and still exits successfully (so a deploy would publish the placeholder). Check the build log for `ERROR:` lines.
 
 ## Local preview
 

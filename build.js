@@ -12,6 +12,14 @@ const DIST = path.join(ROOT, 'dist');
 const STATIC_DIR = path.join(ROOT, 'static');
 const CNAME = path.join(ROOT, 'CNAME'); // optional, must end up at the site root for custom domains
 
+// Used when a project's logo file is missing, so the site still builds.
+const PLACEHOLDER_LOGO = '/assets/images/placeholder.svg';
+const problems = [];
+function problem(msg) {
+    problems.push(msg);
+    console.error(`ERROR: ${msg}`);
+}
+
 function fail(msg) {
     console.error(`\nBuild failed: ${msg}\n`);
     process.exit(1);
@@ -86,7 +94,10 @@ projects.forEach((p, i) => {
     if (!p.logo.startsWith('/')) fail(`${where}: "logo" must be a site path starting with "/"`);
     // Site paths map to the repo as: /projects/... -> projects/..., everything else -> static/...
     const logoSrc = p.logo.startsWith('/projects/') ? path.join(ROOT, p.logo) : path.join(STATIC_DIR, p.logo);
-    if (!fs.existsSync(logoSrc)) fail(`${where}: logo file "${p.logo}" does not exist`);
+    if (!fs.existsSync(logoSrc)) {
+        problem(`${where}: logo file "${p.logo}" does not exist, using placeholder`);
+        p.logo = PLACEHOLDER_LOGO;
+    }
 });
 
 // Index order: newest first by date_added (stable, so ties keep file order).
@@ -105,6 +116,7 @@ fs.rmSync(DIST, { recursive: true, force: true });
 fs.mkdirSync(DIST, { recursive: true });
 
 if (!fs.existsSync(STATIC_DIR)) fail('required folder "static/" is missing');
+if (!fs.existsSync(path.join(STATIC_DIR, PLACEHOLDER_LOGO))) fail(`placeholder image "static${PLACEHOLDER_LOGO}" is missing`);
 fs.cpSync(STATIC_DIR, DIST, { recursive: true });
 if (fs.existsSync(CNAME)) fs.copyFileSync(CNAME, path.join(DIST, 'CNAME'));
 
@@ -177,3 +189,7 @@ for (const p of projects) {
 }
 
 console.log(`Built ${projects.length} projects into dist/`);
+if (problems.length) {
+    console.error(`
+${problems.length} problem(s) above did not stop the build (placeholders were used).`);
+}
